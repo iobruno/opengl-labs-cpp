@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -96,23 +95,22 @@ int main( void )
     GLuint MatrixID = glGetUniformLocation(programID, "MVP");
     
     // Projection matrix : 45∞ Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-    glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+    mat4 Projection = perspective(radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
     // Ortho camera :
     //glm::mat4 Projection = glm::ortho(-10.0f,10.0f,-10.0f,10.0f,0.0f,100.0f); // In world coordinates
     
     // Camera matrix
-    glm::mat4 View = glm::lookAt(
-       glm::vec3(0,0,3), // Camera est· em (4,3,3), no World Space
-       glm::vec3(0,0,0), // e olhando para a origem
-       glm::vec3(0,1,0)  // Est· virada para cima (mude para 0,-1,0 para olhar de cabeÁa para baixo)
+    mat4 View = lookAt(
+       vec3(0,0,3), // Camera est· em (4,3,3), no World Space
+       vec3(0,0,0), // e olhando para a origem
+       vec3(0,1,0)  // Est· virada para cima (mude para 0,-1,0 para olhar de cabeÁa para baixo)
     );
     
     // Model matrix : uma matriz identidade (o modelo esta· na origem)
-    glm::mat4 Model = glm::mat4(1.0f);
+    mat4 Model = mat4(1.0f);
     // Nossa ModelViewProjection : multiplicaÁ„o de nossas 3 matrizes
-
     
-    glm::mat4 MVP = Projection * View * Model; // Lembrem-se, a multiplicaÁ„o de matrizes È inversa
+    mat4 MVP = Projection * View * Model; // Lembrem-se, a multiplicaÁ„o de matrizes È inversa
     
     static const GLfloat g_vertex_buffer_data[] = {
         -1.0f, -1.0f, 0.0f,
@@ -129,17 +127,14 @@ int main( void )
     float modelYAxis = 0.0;
     
     do{
-        
         glClear( GL_COLOR_BUFFER_BIT );
         glUseProgram(programID);
         
         if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-            
             modelXAxis += 0.05;
         }
         if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
             modelXAxis -= 0.05;
-
         }
         if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
             modelYAxis += 0.05;
@@ -150,31 +145,17 @@ int main( void )
         }
 
         
-        
         // Trasladar no eixo Z
-        Model = glm::translate(glm::mat4(1.0f), glm::vec3(modelXAxis, modelYAxis, zAxis));
-        
-        View = glm::lookAt(
-           glm::vec3(xCam, yCam, 3),
-           glm::vec3(0,0,0),
-           glm::vec3(0,1,0)
-        );
-        
+        Model = translate(mat4(1.0f), vec3(modelXAxis, modelYAxis, zAxis));
+        View = lookAt(vec3(xCam, yCam, 3), vec3(0,0,0), vec3(0,1,0));
         MVP = Projection * View * Model;
     
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-        glVertexAttribPointer(
-                              0,3,
-                              GL_FLOAT,
-                              GL_FALSE,
-                              0,
-                              (void*)0
-                              );
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
         
         glDrawArrays(GL_TRIANGLES, 0, 3);
-        
         glDisableVertexAttribArray(0);
         
         glfwSwapBuffers(window);
