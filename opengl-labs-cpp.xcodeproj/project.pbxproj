@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9DD1D29723319F7300171728 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DD1D29623319F7300171728 /* main.cpp */; };
+		9D8726182344188000B0368E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D8726162344180100B0368E /* main.cpp */; };
 		9DD1D29F2331A1AD00171728 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD1D29E2331A1AD00171728 /* OpenGL.framework */; };
 		9DD1D2AF2331A79300171728 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DD1D2AB2331A79300171728 /* shader.cpp */; };
 		9DD1D2B42331A9D600171728 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD1D2B32331A9D600171728 /* GLUT.framework */; };
@@ -28,8 +28,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9D8726142344180000B0368E /* TransformVertexShader.vertexshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TransformVertexShader.vertexshader; sourceTree = "<group>"; };
+		9D8726152344180100B0368E /* ColorFragmentShader.fragmentshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ColorFragmentShader.fragmentshader; sourceTree = "<group>"; };
+		9D8726162344180100B0368E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		9DD1D29323319F7300171728 /* opengl-labs-cpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "opengl-labs-cpp"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9DD1D29623319F7300171728 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		9DD1D29623319F7300171728 /* oldMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = oldMain.cpp; sourceTree = "<group>"; };
 		9DD1D29E2331A1AD00171728 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		9DD1D2A02331A1E300171728 /* libGLEW.2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.1.0.dylib; path = ../../../../usr/local/Cellar/glew/2.1.0/lib/libGLEW.2.1.0.dylib; sourceTree = "<group>"; };
 		9DD1D2A22331A20000171728 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../usr/local/Cellar/glfw/3.3/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
@@ -75,11 +78,14 @@
 		9DD1D29523319F7300171728 /* opengl-labs-cpp */ = {
 			isa = PBXGroup;
 			children = (
+				9D8726152344180100B0368E /* ColorFragmentShader.fragmentshader */,
+				9D8726162344180100B0368E /* main.cpp */,
+				9D8726142344180000B0368E /* TransformVertexShader.vertexshader */,
 				9DD1D2B72331AAED00171728 /* SimpleTransform.vertexshader */,
 				9DD1D2B82331AAED00171728 /* SingleColor.fragmentshader */,
 				9DD1D2AB2331A79300171728 /* shader.cpp */,
 				9DD1D2AD2331A79300171728 /* shader.hpp */,
-				9DD1D29623319F7300171728 /* main.cpp */,
+				9DD1D29623319F7300171728 /* oldMain.cpp */,
 			);
 			path = "opengl-labs-cpp";
 			sourceTree = "<group>";
@@ -150,8 +156,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D8726182344188000B0368E /* main.cpp in Sources */,
 				9DD1D2AF2331A79300171728 /* shader.cpp in Sources */,
-				9DD1D29723319F7300171728 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
