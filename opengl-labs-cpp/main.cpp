@@ -13,12 +13,15 @@ using namespace glm;
 #include "shader.hpp"
 
 
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+
 void processInput(GLFWwindow *window) {
-    float cameraSpeed = 0.05f;
+    float cameraSpeed = 2.5f * deltaTime;
     
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
         cameraPos += cameraSpeed * cameraFront;
@@ -82,7 +85,6 @@ int main(void)
 	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
 	// Ortho camera :
 	//glm::mat4 Projection = glm::ortho(-10.0f,10.0f,-10.0f,10.0f,0.0f,100.0f); // In world coordinates
-
     
     // Camera matrix
 	glm::mat4 View = glm::lookAt(cameraPos, cameraPos + cameraFront , cameraUp);
@@ -185,41 +187,32 @@ int main(void)
 	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
 
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    
 	do {
 
-		glClear(GL_COLOR_BUFFER_BIT);
-
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(programID);
-
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-		glVertexAttribPointer(
-			0,
-			3,
-			GL_FLOAT,
-			GL_FALSE,
-			0,
-			(void*)0
-		);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 		// 2o buffer de atributo : cores
 		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-		glVertexAttribPointer(
-			1,                                
-			3,                                
-			GL_FLOAT,                         
-			GL_FALSE,                         
-			0,                                
-			(void*)0 
-		);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0,(void*)0);
+        
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
         
         processInput(window);
         
-        View = glm::lookAt(cameraPos, cameraPos + cameraFront , cameraUp);
-        
+        glm::vec3 lookAt = glm::vec3(0.0f, 0.0f, 0.0f);        
+        View = glm::lookAt(cameraPos, lookAt , cameraUp);
         MVP = Projection * View * Model;
 
 		// Desenha o triângulo
