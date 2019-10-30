@@ -117,20 +117,20 @@ int main(void)
 	GLuint TextureID = glGetUniformLocation(programID, "myTextureSampler");
 
 	// FIRST OBJECT - CUBO
-	std::vector<glm::vec3> vertices;
-	std::vector<glm::vec2> uvs;
-	std::vector<glm::vec3> normais; // Não está sendo usado
-	bool res = loadOBJ("esfera.obj", vertices, uvs, normais);
+	std::vector<glm::vec3> sunVertex;
+	std::vector<glm::vec2> sunUV;
+	std::vector<glm::vec3> sunNormal; // Não está sendo usado
+	bool res = loadOBJ("esfera.obj", sunVertex, sunUV, sunNormal);
     
-    GLuint vertexbuffer;
-    glGenBuffers(1, &vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+    GLuint sunVertexBuffer;
+    glGenBuffers(1, &sunVertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, sunVertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sunVertex.size() * sizeof(glm::vec3), &sunVertex[0], GL_STATIC_DRAW);
     
-    GLuint uvbuffer;
-    glGenBuffers(1, &uvbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
-    glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+    GLuint sunUVBuffer;
+    glGenBuffers(1, &sunUVBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, sunUVBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sunUV.size() * sizeof(glm::vec2), &sunUV[0], GL_STATIC_DRAW);
     
     
     // SECOND OBJECT - SPACESHIP
@@ -165,13 +165,13 @@ int main(void)
         glBindTexture(GL_TEXTURE_2D, Texture);
         glUniform1i(TextureID, 0);
         glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, sunVertexBuffer);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
         glEnableVertexAttribArray(1);
-        glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, sunUVBuffer);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+        glDrawArrays(GL_TRIANGLES, 0, sunVertex.size());
 
         
         // SECOND OBJECT
@@ -201,8 +201,8 @@ int main(void)
 
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 
-	glDeleteBuffers(1, &vertexbuffer);
-	glDeleteBuffers(1, &uvbuffer);
+	glDeleteBuffers(1, &sunVertexBuffer);
+	glDeleteBuffers(1, &sunUVBuffer);
 	glDeleteProgram(programID);
 	glDeleteTextures(1, &Texture);
 	glDeleteVertexArrays(1, &VertexArrayID);
