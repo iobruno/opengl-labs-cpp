@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D0ADF51236905AA009CD504 /* exemplo8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D0ADF4B236905AA009CD504 /* exemplo8.cpp */; };
+		9D0ADF51236905AA009CD504 /* application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D0ADF4B236905AA009CD504 /* application.cpp */; };
 		9D0ADF52236905AA009CD504 /* objloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D0ADF50236905AA009CD504 /* objloader.cpp */; };
 		9DB1FD5F235FC3CA0071B0E5 /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DB1FD5B235FC3CA0071B0E5 /* stb_image.cpp */; };
 		9DD1D29F2331A1AD00171728 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD1D29E2331A1AD00171728 /* OpenGL.framework */; };
@@ -30,36 +30,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9D0ADF4A236905AA009CD504 /* cubo.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cubo.obj; sourceTree = "<group>"; };
-		9D0ADF4B236905AA009CD504 /* exemplo8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exemplo8.cpp; sourceTree = "<group>"; };
-		9D0ADF4C236905AA009CD504 /* cruiser.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cruiser.obj; sourceTree = "<group>"; };
-		9D0ADF4E236905AA009CD504 /* esfera.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = esfera.obj; sourceTree = "<group>"; };
+		9D0ADF4B236905AA009CD504 /* application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = application.cpp; sourceTree = "<group>"; };
 		9D0ADF4F236905AA009CD504 /* objloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = objloader.hpp; sourceTree = "<group>"; };
 		9D0ADF50236905AA009CD504 /* objloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = objloader.cpp; sourceTree = "<group>"; };
-		9D8726142344180000B0368E /* TransformVertexShader.vertexshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TransformVertexShader.vertexshader; sourceTree = "<group>"; };
-		9D8726152344180100B0368E /* ColorFragmentShader.fragmentshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ColorFragmentShader.fragmentshader; sourceTree = "<group>"; };
-		9D8726162344180100B0368E /* aula6.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = aula6.cpp; sourceTree = "<group>"; };
-		9DB1FD59235FC3CA0071B0E5 /* uvtemplate.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = uvtemplate.bmp; sourceTree = "<group>"; };
 		9DB1FD5B235FC3CA0071B0E5 /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
-		9DB1FD5C235FC3CA0071B0E5 /* TextureFragmentShader.fragmentshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TextureFragmentShader.fragmentshader; sourceTree = "<group>"; };
 		9DB1FD5D235FC3CA0071B0E5 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
-		9DB1FD5E235FC3CA0071B0E5 /* exemplo7.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exemplo7.cpp; sourceTree = "<group>"; };
 		9DD1D29323319F7300171728 /* opengl-labs-cpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "opengl-labs-cpp"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9DD1D29623319F7300171728 /* aula5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = aula5.cpp; sourceTree = "<group>"; };
 		9DD1D29E2331A1AD00171728 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		9DD1D2A02331A1E300171728 /* libGLEW.2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.1.0.dylib; path = ../../../../usr/local/Cellar/glew/2.1.0/lib/libGLEW.2.1.0.dylib; sourceTree = "<group>"; };
 		9DD1D2A22331A20000171728 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../usr/local/Cellar/glfw/3.3/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
 		9DD1D2AB2331A79300171728 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		9DD1D2AD2331A79300171728 /* shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
 		9DD1D2B32331A9D600171728 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
-		9DD1D2B72331AAED00171728 /* SimpleTransform.vertexshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleTransform.vertexshader; sourceTree = "<group>"; };
-		9DD1D2B82331AAED00171728 /* SingleColor.fragmentshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SingleColor.fragmentshader; sourceTree = "<group>"; };
-		9DDC6B30237B7CB100FE152E /* moon_texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = moon_texture.jpg; path = ../../3dobjects/moon_texture.jpg; sourceTree = "<group>"; };
-		9DDC6B31237B7CB100FE152E /* sphere.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = sphere.obj; path = ../../3dobjects/sphere.obj; sourceTree = "<group>"; };
-		9DDC6B32237B7CB100FE152E /* sun_texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sun_texture.jpg; path = ../../3dobjects/sun_texture.jpg; sourceTree = "<group>"; };
-		9DDC6B33237B7CB100FE152E /* earth_texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = earth_texture.jpg; path = ../../3dobjects/earth_texture.jpg; sourceTree = "<group>"; };
-		9DDC6B35237B874800FE152E /* earth.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = earth.obj; path = ../../3dobjects/earth.obj; sourceTree = "<group>"; };
-		9DDC6B38237B8E9200FE152E /* sun.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sun.obj; path = ../../3dobjects/sun.obj; sourceTree = "<group>"; };
+		9DDC6B3B237C284500FE152E /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +63,7 @@
 		9DD1D28A23319F7200171728 = {
 			isa = PBXGroup;
 			children = (
+				9DDC6B3B237C284500FE152E /* resources */,
 				9DD1D29523319F7300171728 /* opengl-labs-cpp */,
 				9DD1D29423319F7300171728 /* Products */,
 				9DD1D29D2331A1AC00171728 /* Frameworks */,
@@ -97,31 +81,13 @@
 		9DD1D29523319F7300171728 /* opengl-labs-cpp */ = {
 			isa = PBXGroup;
 			children = (
-				9DDC6B33237B7CB100FE152E /* earth_texture.jpg */,
-				9DDC6B30237B7CB100FE152E /* moon_texture.jpg */,
-				9DDC6B31237B7CB100FE152E /* sphere.obj */,
-				9DDC6B32237B7CB100FE152E /* sun_texture.jpg */,
-				9D0ADF4C236905AA009CD504 /* cruiser.obj */,
-				9D0ADF4A236905AA009CD504 /* cubo.obj */,
-				9D0ADF4E236905AA009CD504 /* esfera.obj */,
-				9D0ADF4B236905AA009CD504 /* exemplo8.cpp */,
+				9D0ADF4B236905AA009CD504 /* application.cpp */,
 				9D0ADF50236905AA009CD504 /* objloader.cpp */,
 				9D0ADF4F236905AA009CD504 /* objloader.hpp */,
-				9DDC6B35237B874800FE152E /* earth.obj */,
-				9DDC6B38237B8E9200FE152E /* sun.obj */,
-				9DB1FD5E235FC3CA0071B0E5 /* exemplo7.cpp */,
 				9DB1FD5B235FC3CA0071B0E5 /* stb_image.cpp */,
 				9DB1FD5D235FC3CA0071B0E5 /* stb_image.h */,
-				9DB1FD5C235FC3CA0071B0E5 /* TextureFragmentShader.fragmentshader */,
-				9DB1FD59235FC3CA0071B0E5 /* uvtemplate.bmp */,
-				9D8726152344180100B0368E /* ColorFragmentShader.fragmentshader */,
-				9D8726162344180100B0368E /* aula6.cpp */,
-				9D8726142344180000B0368E /* TransformVertexShader.vertexshader */,
-				9DD1D2B72331AAED00171728 /* SimpleTransform.vertexshader */,
-				9DD1D2B82331AAED00171728 /* SingleColor.fragmentshader */,
 				9DD1D2AB2331A79300171728 /* shader.cpp */,
 				9DD1D2AD2331A79300171728 /* shader.hpp */,
-				9DD1D29623319F7300171728 /* aula5.cpp */,
 			);
 			path = "opengl-labs-cpp";
 			sourceTree = "<group>";
@@ -195,7 +161,7 @@
 				9DB1FD5F235FC3CA0071B0E5 /* stb_image.cpp in Sources */,
 				9DD1D2AF2331A79300171728 /* shader.cpp in Sources */,
 				9D0ADF52236905AA009CD504 /* objloader.cpp in Sources */,
-				9D0ADF51236905AA009CD504 /* exemplo8.cpp in Sources */,
+				9D0ADF51236905AA009CD504 /* application.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
