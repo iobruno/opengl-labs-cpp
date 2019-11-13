@@ -1,13 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <vector>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "objloader.hpp"
 #include "shader.hpp"
 #include "stb_image.h"
-#include "objloader.hpp"
 
 using namespace glm;
 
@@ -45,7 +43,7 @@ int main(void) {
 	}
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
