@@ -4,15 +4,12 @@
 #include <cstring>
 
 #include <glm/glm.hpp>
-
 #include "objloader.hpp"
 
-bool loadOBJ(
-	const char * path, 
+bool loadOBJ(const char * path, 
 	std::vector<glm::vec3> & out_vertices, 
 	std::vector<glm::vec2> & out_uvs,
-	std::vector<glm::vec3> & out_normals
-){
+	std::vector<glm::vec3> & out_normals) {
 	printf("Carregando arquivo OBJ %s...\n", path);
 
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
@@ -23,7 +20,7 @@ bool loadOBJ(
 
 	FILE * file = fopen(path, "r");
 	if( file == NULL ){
-		printf("Impossível abrir o arquivo ! Está no caminho correto? \n");
+		printf("Impossivel abrir o arquivo ! Esta no caminho correto? \n");
 		getchar();
 		return false;
 	}
@@ -95,6 +92,7 @@ bool loadOBJ(
 		out_normals .push_back(normal);
 	
 	}
+    
 	fclose(file);
 	return true;
 }

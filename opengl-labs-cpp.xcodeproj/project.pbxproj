@@ -58,6 +58,12 @@
 		9DD1D2B32331A9D600171728 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		9DD1D2B72331AAED00171728 /* SimpleTransform.vertexshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleTransform.vertexshader; sourceTree = "<group>"; };
 		9DD1D2B82331AAED00171728 /* SingleColor.fragmentshader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SingleColor.fragmentshader; sourceTree = "<group>"; };
+		9DDC6B30237B7CB100FE152E /* moon_texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = moon_texture.jpg; path = ../../3dobjects/moon_texture.jpg; sourceTree = "<group>"; };
+		9DDC6B31237B7CB100FE152E /* sphere.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = sphere.obj; path = ../../3dobjects/sphere.obj; sourceTree = "<group>"; };
+		9DDC6B32237B7CB100FE152E /* sun_texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sun_texture.jpg; path = ../../3dobjects/sun_texture.jpg; sourceTree = "<group>"; };
+		9DDC6B33237B7CB100FE152E /* earth_texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = earth_texture.jpg; path = ../../3dobjects/earth_texture.jpg; sourceTree = "<group>"; };
+		9DDC6B35237B874800FE152E /* earth.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = earth.obj; path = ../../3dobjects/earth.obj; sourceTree = "<group>"; };
+		9DDC6B38237B8E9200FE152E /* sun.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sun.obj; path = ../../3dobjects/sun.obj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,12 +101,18 @@
 		9DD1D29523319F7300171728 /* opengl-labs-cpp */ = {
 			isa = PBXGroup;
 			children = (
+				9DDC6B33237B7CB100FE152E /* earth_texture.jpg */,
+				9DDC6B30237B7CB100FE152E /* moon_texture.jpg */,
+				9DDC6B31237B7CB100FE152E /* sphere.obj */,
+				9DDC6B32237B7CB100FE152E /* sun_texture.jpg */,
 				9D0ADF4C236905AA009CD504 /* cruiser.obj */,
 				9D0ADF4A236905AA009CD504 /* cubo.obj */,
 				9D0ADF4E236905AA009CD504 /* esfera.obj */,
 				9D0ADF4B236905AA009CD504 /* exemplo8.cpp */,
 				9D0ADF50236905AA009CD504 /* objloader.cpp */,
 				9D0ADF4F236905AA009CD504 /* objloader.hpp */,
+				9DDC6B35237B874800FE152E /* earth.obj */,
+				9DDC6B38237B8E9200FE152E /* sun.obj */,
 				9D0ADF4D236905AA009CD504 /* suzanne.obj */,
 				9DB1FD62235FC61B0071B0E5 /* warframe_platinum.png */,
 				9DB1FD61235FC5A80071B0E5 /* autodesk.logo.jpeg */,
@@ -315,6 +327,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = " /usr/local/include";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-lglew",
+					"-lglfw",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -325,6 +341,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = " /usr/local/include";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-lglew",
+					"-lglfw",
+				);
+				"OTHER_LDFLAGS[arch=*]" = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
