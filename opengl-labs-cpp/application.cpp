@@ -80,7 +80,7 @@ int main(void) {
 	std::vector<glm::vec3> sunVertex;
 	std::vector<glm::vec2> sunUV;
 	std::vector<glm::vec3> sunNormal;
-	loadOBJ("../resources/3dobjects/sun.obj", sunVertex, sunUV, sunNormal);
+	loadOBJ("../resources/objects/sun.obj", sunVertex, sunUV, sunNormal);
     
     GLuint sunVertexBuffer;
     glGenBuffers(1, &sunVertexBuffer);
@@ -100,7 +100,7 @@ int main(void) {
     std::vector<glm::vec3> earthVertices;
     std::vector<glm::vec2> earthUVs;
     std::vector<glm::vec3> earthNormals;
-    loadOBJ("../resources/3dobjects/earth.obj", earthVertices, earthUVs, earthNormals);
+    loadOBJ("../resources/objects/earth_night.obj", earthVertices, earthUVs, earthNormals);
     
     GLuint earthVertexBuffer;
     glGenBuffers(1, &earthVertexBuffer);
@@ -121,7 +121,7 @@ int main(void) {
     std::vector<glm::vec3> moonVertices;
     std::vector<glm::vec2> moonUVs;
     std::vector<glm::vec3> moonNormals;
-    loadOBJ("../resources/3dobjects/moon.obj", moonVertices, moonUVs, moonNormals);
+    loadOBJ("../resources/objects/moon.obj", moonVertices, moonUVs, moonNormals);
 
     GLuint moonVertexBuffer;
     glGenBuffers(1, &moonVertexBuffer);
@@ -141,7 +141,7 @@ int main(void) {
     // TEXTURE LOADER: SUN
     glBindTexture(GL_TEXTURE_2D, textures[0]);
     int sunWidth, sunHeight, sunNRChannels;
-    unsigned char* sunData = stbi_load("../resources/textures/sun_texture.jpg", &sunWidth, &sunHeight, &sunNRChannels, 0);
+    unsigned char* sunData = stbi_load("../resources/textures/2k_sun.jpg", &sunWidth, &sunHeight, &sunNRChannels, 0);
     if (sunData) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sunWidth, sunHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, sunData);
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -152,7 +152,7 @@ int main(void) {
     // TEXTURE LOADER: EARTH
     glBindTexture(GL_TEXTURE_2D, textures[1]);
     int earthWidth, earthHeight, earthNRChannels;
-    unsigned char* earthData = stbi_load("../resources/textures/earth_texture.jpg", &earthWidth, &earthHeight, &earthNRChannels, 0);
+    unsigned char* earthData = stbi_load("../resources/textures/2k_earth_nightmap.jpg", &earthWidth, &earthHeight, &earthNRChannels, 0);
     if (earthData) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, earthWidth, earthHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, earthData);
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -163,7 +163,7 @@ int main(void) {
     // TEXTURE LOADER: MOON
     glBindTexture(GL_TEXTURE_2D, textures[2]);
     int moonWidth, moonHeight, moonNRChannels;
-    unsigned char* moonData = stbi_load("../resources/textures/earth_texture.jpg", &moonWidth, &moonHeight, &moonNRChannels, 0);
+    unsigned char* moonData = stbi_load("../resources/textures/2k_moon.jpg", &moonWidth, &moonHeight, &moonNRChannels, 0);
     if (moonData) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, moonWidth, moonHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, moonData);
         glGenerateMipmap(GL_TEXTURE_2D);
