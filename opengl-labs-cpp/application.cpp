@@ -14,6 +14,23 @@ using namespace std;
 
 GLFWwindow* window;
 
+void processInput(GLFWwindow *window);
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 6.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, -1.0f, 0.0f);
+
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+
+float lastX = 512;
+float lastY = 384;
+
+float yaw = -90.0f;
+float pitch = 0.0f;
+
 
 void loadTexture(GLuint texture, char const *filepath) {
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -24,6 +41,47 @@ void loadTexture(GLuint texture, char const *filepath) {
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     stbi_image_free(data);
+}
+
+void processInput(GLFWwindow *window)
+{
+    float cameraSpeed = 1.0f * deltaTime;
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        cameraPos += cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        cameraPos -= cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+}
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos;
+    lastX = xpos;
+    lastY = ypos;
+
+    float sensitivity = 0.05f;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+    
+    yaw   += xoffset;
+    pitch += yoffset;
+    
+    if(pitch > 89.0f) {
+      pitch =  89.0f;
+    }
+    if(pitch < -89.0f) {
+      pitch = -89.0f;
+    }
+    
+    glm::vec3 front;
+    front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+    front.y = sin(glm::radians(pitch));
+    front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+    cameraFront = glm::normalize(front);
 }
 
 int main(void) {
@@ -78,14 +136,17 @@ int main(void) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	// Projection matrix : 45° Field of View, 16:9 ratio, display range : 0.1 unit <-> 100 units
-	mat4 Projection = glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f);
-	mat4 View = glm::lookAt(
-		vec3(0, 0, 7),
-		vec3(0, 0, 0),
-		vec3(0, -1, 0)
-	);
-        
+    // Setting up Callbacks
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    
+    // Projection matrix : 45° Field of View, 16:9 ratio, display range : 0.1 unit <-> 100 units
+    mat4 Projection = glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f);
+    mat4 View = glm::lookAt(
+        cameraPos,
+        cameraPos+cameraFront,
+        cameraUp
+    );
+
     // 3D OBJECT: SUN
     mat4 sunModel = mat4(1.0f);
     mat4 sunMVP = Projection * View * sunModel;
@@ -113,7 +174,7 @@ int main(void) {
     vector<vec3> earthVertices;
     vector<vec2> earthUVs;
     vector<vec3> earthNormals;
-    loadOBJ("../resources/objects/earth_night.obj", earthVertices, earthUVs, earthNormals);
+    loadOBJ("../resources/objects/earth_day.obj", earthVertices, earthUVs, earthNormals);
     
     GLuint earthVertexBuffer;
     glGenBuffers(1, &earthVertexBuffer);
@@ -150,7 +211,7 @@ int main(void) {
     GLuint *textures = new GLuint[3];
     glGenTextures(3, textures);
     loadTexture(textures[0], "../resources/textures/2k_sun.jpg");
-    loadTexture(textures[1], "../resources/textures/2k_earth_nightmap.jpg");
+    loadTexture(textures[1], "../resources/textures/2k_earth_daymap.jpg");
     loadTexture(textures[2], "../resources/textures/2k_moon.jpg");
 
 
@@ -200,7 +261,7 @@ int main(void) {
         
         // THIRD OBJECT
         moonModel = translate(earthModel, vec3(2.0f * sin(counter), 0.0f, 2.0f * cos(counter)));
-        moonModel = scale(moonModel, vec3(0.2f));
+        moonModel = scale(moonModel, vec3(1.0f));
         moonMVP = Projection * View * moonModel;
         
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &moonMVP[0][0]);
@@ -217,6 +278,20 @@ int main(void) {
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
         glDrawArrays(GL_TRIANGLES, 0, moonVertices.size());
                 
+        
+        // PORQUE SIM
+        processInput(window);
+        View = glm::lookAt(
+            cameraPos,
+            cameraPos+cameraFront,
+            cameraUp
+        );
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+        glfwSetCursorPosCallback(window, mouse_callback);
+
+        
         glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glfwSwapBuffers(window);
@@ -235,3 +310,6 @@ int main(void) {
 
 	return 0;
 }
+
+
+
