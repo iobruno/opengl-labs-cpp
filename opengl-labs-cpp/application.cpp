@@ -150,35 +150,35 @@ int main(void) {
     mat4 sunModel = mat4(1.0f);
     mat4 sunMVP = Projection * View * sunModel;
 
-	vector<vec3> sunVertex;
-	vector<vec2> sunUV;
-	vector<vec3> sunNormal;
-	loadOBJ("../resources/objects/sun.obj", sunVertex, sunUV, sunNormal);
+	vector<vec3> sunVertexes;
+	vector<vec2> sunUVs;
+	vector<vec3> sunNormals;
+	loadOBJ("../resources/objects/sun.obj", sunVertexes, sunUVs, sunNormals);
     
     GLuint sunVertexBuffer;
     glGenBuffers(1, &sunVertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, sunVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sunVertex.size() * sizeof(vec3), &sunVertex[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sunVertexes.size() * sizeof(vec3), &sunVertexes[0], GL_STATIC_DRAW);
     
     GLuint sunUVBuffer;
     glGenBuffers(1, &sunUVBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, sunUVBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sunUV.size() * sizeof(vec2), &sunUV[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sunUVs.size() * sizeof(vec2), &sunUVs[0], GL_STATIC_DRAW);
     
     
     // 3D OBJECT: EARTH
     mat4 earthModel = mat4(1.0f);
     mat4 earthMVP = Projection * View * earthModel;
 
-    vector<vec3> earthVertices;
+    vector<vec3> earthVertexes;
     vector<vec2> earthUVs;
     vector<vec3> earthNormals;
-    loadOBJ("../resources/objects/earth_day.obj", earthVertices, earthUVs, earthNormals);
+    loadOBJ("../resources/objects/earth_day.obj", earthVertexes, earthUVs, earthNormals);
     
     GLuint earthVertexBuffer;
     glGenBuffers(1, &earthVertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, earthVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, earthVertices.size() * sizeof(vec3), &earthVertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, earthVertexes.size() * sizeof(vec3), &earthVertexes[0], GL_STATIC_DRAW);
     
     GLuint earthUVBuffer;
     glGenBuffers(1, &earthUVBuffer);
@@ -190,44 +190,49 @@ int main(void) {
     mat4 moonModel = mat4(1.0f);
     mat4 moonMVP = Projection * View * moonModel;
     
-    vector<vec3> moonVertices;
+    vector<vec3> moonVertexes;
     vector<vec2> moonUVs;
     vector<vec3> moonNormals;
-    loadOBJ("../resources/objects/moon.obj", moonVertices, moonUVs, moonNormals);
+    loadOBJ("../resources/objects/moon.obj", moonVertexes, moonUVs, moonNormals);
 
     GLuint moonVertexBuffer;
     glGenBuffers(1, &moonVertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, moonVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, moonVertices.size() * sizeof(vec3), &moonVertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, moonVertexes.size() * sizeof(vec3), &moonVertexes[0], GL_STATIC_DRAW);
     
     GLuint moonUVBuffer;
     glGenBuffers(1, &moonUVBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, moonUVBuffer);
-    glBufferData(GL_ARRAY_BUFFER, moonUVs.size() * sizeof(vec2), &moonVertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, moonUVs.size() * sizeof(vec2), &moonUVs[0], GL_STATIC_DRAW);
 
 
     // TEXTURE LOADER
     GLuint *textures = new GLuint[3];
     glGenTextures(3, textures);
     loadTexture(textures[0], "../resources/textures/2k_sun.jpg");
-    loadTexture(textures[1], "../resources/textures/2k_earth_daymap.jpg");
+    loadTexture(textures[1], "../resources/textures/2k_earth_nightmap.jpg");
     loadTexture(textures[2], "../resources/textures/2k_moon.jpg");
-
+    
 
     float counter = 0.0f;
+    float rotateSpeed = 0.5f;
     
 	do {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        counter = counter + 0.01f;
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(programID);
 
-        // FIRST OBJECT
+        /**
+        ====================== FIRST OBJECT ======================
+         */
         sunModel = rotate(sunModel, 0.001f, vec3(0.0f, 1.0f, 0.0f));
         sunMVP = Projection * View * sunModel;
 
+        glUniform1i(TextureID, 0);
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &sunMVP[0][0]);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textures[0]);
-        glUniform1i(TextureID, 0);
+
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, sunVertexBuffer);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -235,48 +240,63 @@ int main(void) {
         glEnableVertexAttribArray(1);
         glBindBuffer(GL_ARRAY_BUFFER, sunUVBuffer);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        glDrawArrays(GL_TRIANGLES, 0, sunVertex.size());
+
+        glDrawArrays(GL_TRIANGLES, 0, sunVertexes.size());
 
         
-        // SECOND OBJECT
-        earthModel = translate(sunModel, vec3(5.0f * sin(counter * 0.1f), 0.0f, 5.0f * cos(counter * 0.1f)));
+        /**
+        ====================== SECOND OBJECT ======================
+         */
+        earthModel = translate(sunModel, vec3(4.0f * sin(counter * 0.1f),
+                                              0.0f,
+                                              4.0f * cos(counter * 0.1f) ));
         earthModel = scale(earthModel, vec3(0.8f));
+        earthModel = rotate(earthModel, 0.05f, vec3(0.0f, 1.0f, 0.0f));
+
         earthMVP = Projection * View * earthModel;
-        
+
+        glUniform1i(TextureID, 0);
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &earthMVP[0][0]);
         glActiveTexture(GL_TEXTURE0);
-        
         glBindTexture(GL_TEXTURE_2D, textures[1]);
-        glUniform1i(TextureID, 0);
+
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, earthVertexBuffer);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        
+
         glEnableVertexAttribArray(1);
         glBindBuffer(GL_ARRAY_BUFFER, earthUVBuffer);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        glDrawArrays(GL_TRIANGLES, 0, earthVertices.size());
 
+        glDrawArrays(GL_TRIANGLES, 0, earthVertexes.size());
         
-        // THIRD OBJECT
-        moonModel = translate(earthModel, vec3(2.0f * sin(counter), 0.0f, 2.0f * cos(counter)));
-        moonModel = scale(moonModel, vec3(1.0f));
+        
+        /**
+        ====================== THIRD OBJECT ======================
+         */
+        moonModel = translate(earthModel, vec3(2.0f * sin(counter * 0.5f),
+                                               0.0f,
+                                               2.0f * cos(counter * 0.5f) ));
+        moonModel = scale(moonModel, vec3(0.4f));
+        moonModel = rotate(moonModel, 0.02f, vec3(0.0f, 1.0f, 0.0f));
+
         moonMVP = Projection * View * moonModel;
-        
+
+        glUniform1i(TextureID, 0);
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &moonMVP[0][0]);
         glActiveTexture(GL_TEXTURE0);
-        
         glBindTexture(GL_TEXTURE_2D, textures[2]);
-        glUniform1i(TextureID, 0);
+
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, moonVertexBuffer);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        
+
         glEnableVertexAttribArray(1);
         glBindBuffer(GL_ARRAY_BUFFER, moonUVBuffer);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        glDrawArrays(GL_TRIANGLES, 0, moonVertices.size());
-                
+
+        glDrawArrays(GL_TRIANGLES, 0, moonVertexes.size());
+        
         
         // UPDATES VIEWS BASED ON KEYBOARD_PRESS AND MOUSE_POSITIONING
         processInput(window);
@@ -285,26 +305,29 @@ int main(void) {
             cameraPos+cameraFront,
             cameraUp
         );
+
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         glfwSetCursorPosCallback(window, mouse_callback);
 
-        
         glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
-		glfwSwapBuffers(window);
+        glDisableVertexAttribArray(2);
+        glfwSwapBuffers(window);
 		glfwPollEvents();
-        counter = counter + 0.01f;
 
     } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
              glfwWindowShouldClose(window) == 0);
 
 	glDeleteBuffers(1, &sunVertexBuffer);
 	glDeleteBuffers(1, &sunUVBuffer);
+    glDeleteBuffers(1, &earthVertexBuffer);
+    glDeleteBuffers(1, &earthUVBuffer);
+    glDeleteBuffers(1, &moonVertexBuffer);
+    glDeleteBuffers(1, &moonUVBuffer);
 	glDeleteProgram(programID);
 	glDeleteVertexArrays(1, &VertexArrayID);
-
 	glfwTerminate();
 	return 0;
 }
