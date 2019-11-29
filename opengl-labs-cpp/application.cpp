@@ -43,8 +43,7 @@ void loadTexture(GLuint texture, char const *filepath) {
     stbi_image_free(data);
 }
 
-void processInput(GLFWwindow *window)
-{
+void processInput(GLFWwindow *window) {
     float cameraSpeed = 1.0f * deltaTime;
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -67,8 +66,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     xoffset *= sensitivity;
     yoffset *= sensitivity;
     
-    yaw   += xoffset;
-    pitch += yoffset;
+    yaw   -= xoffset;
+    pitch -= yoffset;
     
     if(pitch > 89.0f) {
       pitch =  89.0f;
@@ -78,7 +77,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     }
     
     glm::vec3 front;
-    front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+    front.x = (cos(glm::radians(pitch)) * cos(glm::radians(yaw)));
     front.y = sin(glm::radians(pitch));
     front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
     cameraFront = glm::normalize(front);
@@ -279,7 +278,7 @@ int main(void) {
         glDrawArrays(GL_TRIANGLES, 0, moonVertices.size());
                 
         
-        // PORQUE SIM
+        // UPDATES VIEWS BASED ON KEYBOARD_PRESS AND MOUSE_POSITIONING
         processInput(window);
         View = glm::lookAt(
             cameraPos,
@@ -307,9 +306,5 @@ int main(void) {
 	glDeleteVertexArrays(1, &VertexArrayID);
 
 	glfwTerminate();
-
 	return 0;
 }
-
-
-
