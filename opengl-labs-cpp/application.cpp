@@ -173,7 +173,7 @@ int main(void) {
     vector<vec3> earthVertexes;
     vector<vec2> earthUVs;
     vector<vec3> earthNormals;
-    loadOBJ("../resources/objects/earth_day.obj", earthVertexes, earthUVs, earthNormals);
+    loadOBJ("../resources/objects/earth_apocalypse.obj", earthVertexes, earthUVs, earthNormals);
     
     GLuint earthVertexBuffer;
     glGenBuffers(1, &earthVertexBuffer);
@@ -210,15 +210,21 @@ int main(void) {
     GLuint *textures = new GLuint[3];
     glGenTextures(3, textures);
     loadTexture(textures[0], "../resources/textures/2k_sun.jpg");
-    loadTexture(textures[1], "../resources/textures/2k_earth_nightmap.jpg");
+    loadTexture(textures[1], "../resources/textures/earth_apocalypse.jpg");
     loadTexture(textures[2], "../resources/textures/2k_moon.jpg");
     
 
     float counter = 0.0f;
     float rotateSpeed = 0.5f;
     
+    float earthRotation = 0.0f;
+    float moonRotation = 0.0f;
+    
 	do {
         counter = counter + 0.01f;
+        earthRotation += 0.3f;
+        moonRotation += 1.0f;
+        
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(programID);
 
@@ -251,7 +257,7 @@ int main(void) {
                                               0.0f,
                                               4.0f * cos(counter * 0.1f) ));
         earthModel = scale(earthModel, vec3(0.8f));
-        earthModel = rotate(earthModel, 0.05f, vec3(0.0f, 1.0f, 0.0f));
+        earthModel = rotate(earthModel, radians(earthRotation), vec3(0.0f, 1.0f, 0.0f));
 
         earthMVP = Projection * View * earthModel;
 
@@ -274,11 +280,11 @@ int main(void) {
         /**
         ====================== THIRD OBJECT ======================
          */
-        moonModel = translate(earthModel, vec3(2.0f * sin(counter * 0.5f),
+        moonModel = translate(earthModel, vec3(2.0f * sin(counter * 0.1f),
                                                0.0f,
-                                               2.0f * cos(counter * 0.5f) ));
+                                               2.0f * cos(counter * 0.1f) ));
         moonModel = scale(moonModel, vec3(0.4f));
-        moonModel = rotate(moonModel, 0.02f, vec3(0.0f, 1.0f, 0.0f));
+        moonModel = rotate(moonModel, radians(moonRotation), vec3(0.0f, -1.0f, 0.0f));
 
         moonMVP = Projection * View * moonModel;
 
