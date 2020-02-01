@@ -9,7 +9,7 @@ Check out the Up and Running section to get it started
 
 ## Up and Running 
 
-**macOS:**
+### MacOS
 ```
 $ brew install glfw glew glm 
 ```
@@ -30,7 +30,7 @@ Which is where the project code is (`.h`, `.hpp` and `cpp` files).
 
 <img width="897" alt="how-to-edit-working-directory" src="https://user-images.githubusercontent.com/15306309/72669951-9e6f3080-3a16-11ea-83dd-da116b5cdb06.png">
 
-**Linux | Windows**
+### Linux | Windows
 ```
 T.B.D.
 ```
