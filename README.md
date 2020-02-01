@@ -9,7 +9,7 @@ Check out the Up and Running section to get it started
 
 ## Up and Running 
 
-**macOS:**
+### MacOS
 ```
 $ brew install glfw glew glm 
 ```
@@ -30,7 +30,32 @@ Which is where the project code is (`.h`, `.hpp` and `cpp` files).
 
 <img width="897" alt="how-to-edit-working-directory" src="https://user-images.githubusercontent.com/15306309/72669951-9e6f3080-3a16-11ea-83dd-da116b5cdb06.png">
 
-**Linux | Windows**
+### Linux
+
+#### Installing Dependencies
+```
+$ # Install OpenGL Development Tools
+$ sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev libglew-dev
+
+$ # Install GLFW Development Tools
+$ sudo apt-get install libglfw3-dev
+
+$ # Install GLM Development Tools
+$ sudo apt-get install libglm-dev
+```
+
+#### Running
+
+You will need `g++` installed in order to compile this project. You can install it just like the other dependencies, but you probably already have it on your computer.
+```
+$ # Compile the project
+$ make build
+
+$ # Run it!
+$ make run
+```
+
+### Windows
 ```
 T.B.D.
 ```
